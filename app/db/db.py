@@ -21,9 +21,13 @@ async def sql_add_file(state):
         base.commit()
 
 async def sql_send_photo(text):
-    cur.execute('SELECT file_cash FROM bot_file WHERE file_name = ?', (text,))
-    res = cur.fetchone()[0]
-    return res
+    try:
+        cur.execute('SELECT file_cash FROM bot_file WHERE file_name = ?', (text,))
+        res = cur.fetchone()[0]
+        return res
+    except TypeError:
+        logging.warning(f'In Database not found file with id: {text}')
+        return False
 
 async def sql_list_file():
     cur.execute('SELECT file_name FROM bot_file')

@@ -37,13 +37,19 @@ async def upload_file(message: Message, state: FSMContext):
 
 async def download_file(message: Message):
     cash_file = await db.sql_send_photo(message.text)
-    await bot.send_photo(message.chat.id, cash_file)
+    if cash_file:
+        await bot.send_photo(message.chat.id, cash_file)
+    else:
+        await message.answer('Файл с таким артикулом не найден')
 
 async def file_list(message: Message):
     res = await db.sql_list_file()
-    res.sort()
-    await message.answer(f'В бота загружено файлов: {len(res)}. Вот список артикулов:')
-    await message.answer("\n".join(res))
+    if len(res) != 0:
+        res.sort()
+        await message.answer(f'В бота загружено файлов: {len(res)}. Вот список артикулов:')
+        await message.answer("\n".join(res))
+    else:
+        await message.answer('Файлы пока не загружены, воспользуйтесь командой /upload для загрузки')
 
 # Дополнить описание в команде
 async def help_command(message: Message):
