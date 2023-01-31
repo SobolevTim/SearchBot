@@ -36,6 +36,13 @@ async def sql_list_file():
     for i in records:
         res.append(i[0])
     return res
+
+async def sql_del_file(text):
+    try:
+        cur.execute('DELETE from bot_file WHERE file_name = ?', (text,))
+        base.commit()
+    except sql.Error as error:
+        logging.warning(f'Database have error: {error}')
         
 
 
