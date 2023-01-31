@@ -10,7 +10,7 @@
 </ul>
 <h4>For start bot:</h4>
 <ul>
-  <li>add TOKEN in .env file; </li>
+  <li>add TOKEN and ADMIN ID (from telegram) in .env file; </li>
   <li>create and activate new venv with aiorgamm and dotenv; </li>
   <li> Start bot - python main.py. </li>
 </ul>
